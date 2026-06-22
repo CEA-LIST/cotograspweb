@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0e0e0;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px;
+            background: #cddbfa;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #3a03ff;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #000000;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background-color: #333;
+            border-radius: 20px;
+            height: 12px;
+            width: 100%;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #ffb703, #fb8500);
+            height: 100%;
+            width: 70%; /* Adjust this to change progress percentage */
+            border-radius: 20px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .social-links a {
+            color: #ffb703;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fb8500;
+        }
+
+        /* Subtle float animation for the icon */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="icon">🚧</div>
+        <h1>Under Construction</h1>
+        <p>COAG: Generative and Object-Agnostic Grasp Planner for Dexterous Robotic Manipulation</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+</body>
+</html>
