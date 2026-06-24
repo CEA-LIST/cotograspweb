@@ -1,104 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Construction</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning, J. Mérand">
+  <!-- TODO: Write a compelling 150-160 character description of your research -->
+  <meta name="description" content="We propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies.">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="robotics, grasping, manipulation, machine learning, computer vision, AI, Transformer, CVAE, canonical workspace, contact topology">
+  <!-- TODO: List all authors -->
+  <meta name="author" content="Julien Mérand, Boris Meden, Liming Chen, Mathieu Grossard">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="Université Paris-Saclay, CEA-List, Centrale Lyon, CNRS">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="We propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies.">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="https://cea-list.github.io/cotograspweb/">
+  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:image" content="https://cea-list.github.io/cotograspweb/static/images/teaser_1200.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="571">
+  <meta property="og:image:alt" content="CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning - Research Preview">
+  <meta property="article:published_time" content="2026-07-01T00:00:00.000Z">
+  <meta property="article:author" content="Julien Mérand">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Robotics">
+  <meta property="article:tag" content="Grasping">
+  <meta property="article:tag" content="Manipulation">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e0e0e0;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
-        }
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <meta name="twitter:site" content="@Julien_Merand">
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <meta name="twitter:creator" content="@Julien_Merand">
+  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:title" content="CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning">
+  <!-- TODO: Same as description above -->
+  <meta name="twitter:description" content="We propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies.">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="https://cea-list.github.io/cotograspweb/static/images/teaser_1200.jpg">
+  <meta name="twitter:image:alt" content="CoToGrasp - Research Preview">
 
-        .container {
-            max-width: 600px;
-            padding: 40px;
-            background: #cddbfa;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid #333;
-        }
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning">
+  <meta name="citation_author" content="Mérand, Julien">
+  <meta name="citation_author" content="Meden, Boris">
+  <meta name="citation_author" content="Chen, Liming">
+  <meta name="citation_author" content="Grossard, Mathieu">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="ECCV">
+  <meta name="citation_pdf_url" content="https://cea-list.github.io/cotograspweb/static/pdfs/postprint_CoToGrasp___Contact_Topology_Conditioned_Dexterous_Grasp_Synthesis_via_Canonical_Workspace_Learning_full.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-        .icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #3a03ff;
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning - Julien Mérand, Boris Meden, Liming Chen, Mathieu Grossard</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning",
+    "description": "We propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Julien Mérand",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Université Paris-Saclay, CEA-List"
         }
+      },
+      {
+        "@type": "Person",
+        "name": "Boris Meden",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Université Paris-Saclay, CEA-List"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Liming Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Centrale Lyon, CNRS, LIRIS, UMR5205, Institut Universitaire de France (IUF)"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mathieu Grossard",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Université Paris-Saclay, CEA-List"
+        }
+      }
+    ],
+    "datePublished": "2026-07-01",
+    "publisher": {
+      "@type": "Conference",
+      "name": "19th European Conference on Computer Vision (ECCV)"
+    },
+    "url": "https://cea-list.github.io/cotograspweb/",
+    "image": "https://cea-list.github.io/cotograspweb/static/images/teaser.png",
+    "keywords": ["robotics", "grasping", "manipulation", "machine learning", "computer vision", "AI", "Transformer", "CVAE", "canonical workspace", "contact topology"],
+    "abstract": "Current dexterous grasp planners primarily optimize for physical stability, focusing on whether an object can be grasped rather than how it should be grasped to support downstream functional tasks. However, conditioning grasp synthesis on specific human grasp taxonomies typically requires prohibitively expensive, object-annotated datasets. To address these limitations, we propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies. To bypass the data collection bottleneck, CoToGrasp is trained entirely in an object-agnostic manner. We introduce a feature-based canonical workspace that projects local object features into a unified gripper-centric domain, effectively decoupling the semantic functional intent from the arbitrary object geometry. By learning the intrinsic contact manifold of the gripper within this workspace, our model achieves zero-shot generalization to unseen objects at inference. Extensive evaluations on the large-scale DexGraspNet dataset demonstrate that CoToGrasp achieves state-of-the-art performance, outperforming existing taxonomy-guided planners. Finally, we demonstrate the physical viability and kinematic feasibility of our synthesized contact topologies on a physical robot platform.",
+    "citation": "@inproceedings{merand2026cotograsp,
+      title={CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning},
+      author={Mérand, Julien and Meden, Boris and Chen, Liming and Grossard, Mathieu},
+      booktitle={19th European Conference on Computer Vision (ECCV)},
+      year={2026}
+    }",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://cea-list.github.io/cotograspweb/"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Grasp Synthesis"
+      },
+      {
+        "@type": "Thing", 
+        "name": "Multifingered Robotic Grasping"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Université Paris-Saclay, CEA-List, Centrale Lyon, CNRS, Institut Universitaire de France (IUF)",
+    "url": "https://cea-list.github.io/cotograspweb/",
+    "logo": "https://cea-list.github.io/cotograspweb/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/Julien_Merand",
+      "https://github.com/JulienMerand",
+    ]
+  }
+  </script>
 
-        p {
-            font-size: 1.1rem;
-            color: #000000;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+  <!-- MathJax Configuration for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
 
-        /* Progress Bar */
-        .progress-container {
-            background-color: #333;
-            border-radius: 20px;
-            height: 12px;
-            width: 100%;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, #ffb703, #fb8500);
-            height: 100%;
-            width: 70%; /* Adjust this to change progress percentage */
-            border-radius: 20px;
-            transition: width 0.5s ease-in-out;
-        }
-
-        .social-links a {
-            color: #ffb703;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #fb8500;
-        }
-
-        /* Subtle float animation for the icon */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="icon">🚧</div>
-        <h1>Under Construction</h1>
-        <p>CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning</p>
-        
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
-    </div>
 
-</body>
-</html>
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Related Works</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <!-- TODO: Replace with your lab's related works -->
+        <a href="https://cea-list.github.io/goagweb/" class="work-item" target="_blank">
+          <div class="work-info">
+            <!-- TODO: Replace with actual paper title -->
+            <h5>GOAG: Generative and Object-Agnostic Grasp Planner for Dexterous Robotic Manipulation</h5>
+            <!-- TODO: Replace with brief description -->
+            <p>We propose GOAG, a novel deep generative model that learns a compact latent representation of a specific gripper's contact surface distribution, enabling the efficient sampling of valid grasp configurations without relying on object-specific training data.</p>
+            <!-- TODO: Replace with venue and year -->
+            <span class="work-venue">2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <!-- TODO: Add more related works or remove extra items -->
+        <a href="https://arxiv.org/abs/2511.17276" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Leveraging CVAE for joint configuration estimation of multifingered grippers from point cloud data</h5>
+            <p>This paper presents an efficient approach for determining the joint configuration of a multifingered gripper solely from the point cloud data of its poly-articulated chain, as generated by visual sensors, simulations or even generative neural networks.</p>
+            <span class="work-venue">2025 IEEE 21st International Conference on Automation Science and Engineering (CASE)</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title">CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: Replace with your paper authors and their personal links -->
+              <span class="author-block">
+                <a href="https://julienmerand.github.io/portfolio/" target="_blank">Julien Mérand</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=knXPf8oAAAAJ&hl=fr" target="_blank">Boris Meden</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=VOPW5YYAAAAJ&hl=fr" target="_blank">Liming Chen</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="mailto:mathieu.grossard@cea.fr" target="_blank">Mathieu Grossard</a><sup>1</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: Replace with your institution and conference/journal info -->
+              <span class="author-block">
+                <sup>1</sup>Université Paris-Saclay, CEA-List, &nbsp; &nbsp; 
+                <sup>2</sup>École Centrale de Lyon, CNRS, LIRIS, UMR5205, Institut Universitaire de France (IUF)
+                <br><br>19th European Conference on Computer Vision (ECCV), 2026
+              </span>
+              <!-- TODO: Remove this line if no equal contribution -->
+              <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                    <!-- TODO: Update with your paper pdf -->
+                <span class="link-block">
+                  <a href="static/pdfs/postprint_CoToGrasp___Contact_Topology_Conditioned_Dexterous_Grasp_Synthesis_via_Canonical_Workspace_Learning_full.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- TODO: Add your supplementary material PDF or remove this section -->
+                <span class="link-block">
+                  <a href="static/pdfs/CoToGrasp_Supp_Mat.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary</span>
+                  </a>
+                </span>
+
+                <!-- TODO: Replace with your GitHub repository URL -->
+                <span class="link-block">
+                  <a href="https://github.com/CEA-LIST/CoToGrasp" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- TODO: Update with your arXiv paper ID -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                  </a>
+                </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Teaser Image-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/teaser.png" alt="Descriptive alt text for your teaser" id="teaser-image" style="width:100%;">
+      <h2 class="subtitle has-text-justified">
+        <strong>Contact-Topology-Conditioned Grasp Synthesis.</strong> 
+        Our framework synthesizes stable, functionally diverse grasps for unseen objects by decoupling functional intent from geometry. By learning a latent manifold in a canonical workspace, we achieve zero-shot generalization across 
+        <span style="color: #00b34d; font-weight: bold;">Precision</span>, 
+        <span style="color: #ffcc33; font-weight: bold;">Object-Specific</span>, and 
+        <span style="color: #ff0000; font-weight: bold;">Power</span> contact topologies.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser image -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <!-- TODO: Replace with your paper abstract -->
+          <p>
+          Current dexterous grasp planners primarily optimize for physical stability, focusing on whether an object can be grasped rather than how it should be grasped to support downstream functional tasks. However, conditioning grasp synthesis on specific human grasp taxonomies typically requires prohibitively expensive, object-annotated datasets. To address these limitations, we propose CoToGrasp, a novel generative framework that synthesizes diverse, stable grasps strictly conditioned on specific contact topologies. To bypass the data collection bottleneck, CoToGrasp is trained entirely in an object-agnostic manner. We introduce a feature-based canonical workspace that projects local object features into a unified gripper-centric domain, effectively decoupling the semantic functional intent from the arbitrary object geometry. By learning the intrinsic contact manifold of the gripper within this workspace, our model achieves zero-shot generalization to unseen objects at inference. Extensive evaluations on the large-scale DexGraspNet dataset demonstrate that CoToGrasp achieves state-of-the-art performance, outperforming existing taxonomy-guided planners. Finally, we demonstrate the physical viability and kinematic feasibility of our synthesized contact topologies on a physical robot platform.  
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/overview.png" alt="First research result visualization" loading="lazy"/>
+        <!-- TODO: Replace with description of this result -->
+        <h2 class="subtitle has-text-justified">
+          <strong> CoToGrasp Method Overview.</strong> The proposed framework operates in two distinct phases.
+          <br><br>
+          <strong>Object-Agnostic Training (Top):</strong> The model learns an intrinsic, gripper-centric contact manifold. Given a gripper point cloud $(\mathcal{H}(I, \mathbf{0}, Q))$ and a target grasp type (e.g., 'M4'), local geometric features are extracted and projected onto a canonical Feature-Based Workspace $(\mathcal{W})$. A Transformer Encoder processes these projected features alongside the type embedding to capture spatial dependencies, outputting a condition vector $(\Phi)$. Concurrently, a Conditional Variational Autoencoder (CVAE) models the stochasticity of valid contact zones to reconstruct the predicted semantic contact template $(\hat{\Lambda}_4)$.
+          <br><br>
+          <strong>Grasp Synthesis (Bottom):</strong> During inference, a target object $(\mathcal{O})$ is transformed into the canonical gripper frame $(\tilde{\mathcal{O}})$. By sampling a latent vector $(z)$ and conditioning on the target grasp type, the trained network predicts a semantic contact distribution on the object surface. This prediction is strictly filtered through a cascading validation pipeline (Label-Consistency and Force-Closure checks) to reject topologically invalid or unstable configurations. Finally, an Energy-Based Optimization aligns the gripper's kinematics to the validated contact points, yielding the final stable grasp $(Q^*)$.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/tests.png" alt="Second research result visualization" loading="lazy"/>
+        <h2 class="subtitle has-text-justified">
+          <strong>Real-World kinematic validation.</strong> CoToGrasp synthesizes diverse, topology-compliant grasps that are physically executable on a physical Allegro Hand using YCB objects. The target contact topologies (indicated above each frame) demonstrate the physical viability of the generated grasps across both precision and power categories.
+        </h2>
+      </div>
+      <!-- <div class="item"> -->
+        <!-- Your image here -->
+        <!-- <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/> -->
+        <!-- <h2 class="subtitle has-text-centered"> -->
+         <!-- Third image description. -->
+        <!-- </h2> -->
+      <!-- </div> -->
+      <!-- <div class="item"> -->
+        <!-- Your image here -->
+        <!-- <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/> -->
+        <!-- <h2 class="subtitle has-text-centered"> -->
+          <!-- Fourth image description. -->
+        <!-- </h2> -->
+      <!-- </div> -->
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+<!-- Youtube video -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <!-- TODO: Replace with your YouTube video ID -->
+            <!-- <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+            <video poster="" id="tree" controls loop height="100%" preload="metadata"> -->
+              <!-- TODO: Add your video file path here -->
+              <source src="static/videos/CoToGrasp.mp4" type="video/mp4">
+            </video>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<!-- <section class="hero is-small"> -->
+  <!-- <div class="hero-body"> -->
+    <!-- <div class="container"> -->
+      <!-- <h2 class="title is-3">Qualitative Results: Synthesized Grasps and Real-World Experiments</h2> -->
+      <!-- <div id="results-carousel" class="carousel results-carousel"> -->
+        <!-- <div class="item item-video1"> -->
+          <!-- TODO: Add poster image for better preview -->
+          <!-- <video poster="" id="video1" controls muted loop height="100%" preload="metadata"> -->
+            <!-- Your video file here -->
+            <!-- <source src="static/videos/synthetic_grasps.mp4" type="video/mp4"> -->
+          <!-- </video> -->
+          <!-- <h2 class="subtitle has-text-centered"> -->
+            <!-- <strong>Clustering of Shadow Hand Grasps.</strong> -->
+          <!-- </h2> -->
+        <!-- </div> -->
+        <!-- <div class="item item-video2"> -->
+          <!-- TODO: Add poster image for better preview -->
+          <!-- <video poster="" id="video2" controls muted loop height="100%" preload="metadata"> -->
+            <!-- Your video file here -->
+            <!-- <source src="static/videos/CoToGrasp_Real_Exp_Allegro.mp4" type="video/mp4"> -->
+          <!-- </video> -->
+          <!-- <h2 class="subtitle has-text-centered"> -->
+            <!-- <strong>Real-World Experiments.</strong> -->
+          <!-- </h2> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+<!-- End video carousel -->
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Qualitative Results: Synthesized Grasps and Real-World Experiments</h2>
+      <div class="columns is-centered">
+
+        <div class="column">
+          <div class="results-carousel"> <div class="item">
+              <video id="video1" controls muted loop playsinline preload="metadata" style="border-radius: 8px;">
+                <source src="static/videos/synthetic_grasps.mp4" type="video/mp4">
+              </video>
+              <h2 class="subtitle has-text-centered">
+                <strong>Clustering of Shadow Hand Grasps.</strong>  
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="results-carousel"> <div class="item">
+              <video id="video2" controls muted loop playsinline preload="metadata" style="border-radius: 8px;">
+                <source src="static/videos/CoToGrasp_Real_Exp_Allegro.mp4" type="video/mp4">
+              </video>
+              <h2 class="subtitle has-text-centered">
+                <strong>Real-World Experiments.</strong>
+              </h2>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- Paper poster -->
+<!-- <section class="hero is-small is-light"> -->
+  <!-- <div class="hero-body"> -->
+    <!-- <div class="container"> -->
+      <!-- <h2 class="title">Poster</h2> -->
+      <!-- TODO: Replace with your poster PDF -->
+      <!-- <iframe  src="static/pdfs/sample.pdf" width="100%" height="550"></iframe> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </section> -->
+<!--End paper poster -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{merand2026cotograsp,
+  title={CoToGrasp: Contact-Topology-Conditioned Dexterous Grasp Synthesis via Canonical Workspace Learning},
+  author={Mérand, Julien and Meden, Boris and Chen, Liming and Grossard, Mathieu},
+  journal={19th European Conference on Computer Vision (ECCV)},
+  year={2026},
+  url={https://cea-list.github.io/cotograspweb/},
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
